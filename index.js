@@ -1,7 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import { Login, Register } from "./Controllers/Register.js";
+import { Login, Register, currentuser } from "./Controllers/UserController.js";
+import { addproduct } from "./Controllers/AddProduct.js";
+import { productMiddleWare } from "./Middleware/ProductMiddleware.js";
 
 const app = express();
 dotenv.config();
@@ -13,6 +15,8 @@ app.get("/", (req, res) => {
 
 app.post("/register", Register);
 app.post("/login", Login);
+app.post("/currentuser", currentuser);
+app.post("/addproduct", productMiddleWare, addproduct);
 
 mongoose
   .connect(process.env.MONGO_URL)
