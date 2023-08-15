@@ -15,7 +15,7 @@ app.post("/register", Register);
 app.post("/login", Login);
 
 mongoose
-  .connect(process.env.MONOGO_URL)
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("connected to DB");
   })
@@ -23,6 +23,6 @@ mongoose
     console.log(" error Connection DB");
   });
 
-app.listen(8001, () => {
+app.listen(8000, () => {
   console.log("app running on port 8001");
 });
