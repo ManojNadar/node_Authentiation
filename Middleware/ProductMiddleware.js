@@ -22,7 +22,7 @@ export const productMiddleWare = async (req, res, next) => {
 
     const user = await User.findById(userId);
 
-    console.log(user);
+    // console.log(user);
 
     if (user && user?.role === "Seller") {
       next();
