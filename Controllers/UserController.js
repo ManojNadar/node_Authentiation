@@ -1,6 +1,6 @@
 import User from "../Model/UserModel.js";
 import bcrypt from "bcrypt";
-import jwt, { decode } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export const Register = async (req, res) => {
   try {
@@ -129,6 +129,7 @@ export const currentuser = async (req, res) => {
       email: user.email,
       _id: user._id,
     };
+    
     res.status(200).json({ status: "Success", data: userObj });
 
     // console.log(userObj);
