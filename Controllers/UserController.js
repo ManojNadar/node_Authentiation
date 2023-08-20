@@ -50,6 +50,13 @@ export const Login = async (req, res) => {
 
     if (email && password) {
       const user = await User.findOne({ email });
+
+      if (user.isBlocked) {
+        return res.json({
+          success: false,
+          message: "You are blocked, try contact admin",
+        });
+      }
       //   console.log(user);
 
       if (user) {
@@ -67,32 +74,32 @@ export const Login = async (req, res) => {
           const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
           //   console.log(token);
 
-          res.json({
+          return res.json({
             status: "Success",
             message: "Logged In Success",
             data: userObj,
             token: token,
           });
         } else {
-          res.json({
+          return res.json({
             status: "Error",
             message: "Password doesnot match",
           });
         }
       } else {
-        res.json({
+        return res.json({
           status: "Error",
           message: "User not Found",
         });
       }
     } else {
-      res.json({
+      return res.json({
         status: "Error",
         message: "All fields are mandatory",
       });
     }
   } catch (error) {
-    res.json({
+    return res.json({
       status: "Error",
       message: "Error from Catch Block",
     });
@@ -129,7 +136,7 @@ export const currentuser = async (req, res) => {
       email: user.email,
       _id: user._id,
     };
-    
+
     res.status(200).json({ status: "Success", data: userObj });
 
     // console.log(userObj);

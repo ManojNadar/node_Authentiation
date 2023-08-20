@@ -21,6 +21,13 @@ const userSchema = new Schema({
   cart: {
     type: [String],
   },
+  wishlist: {
+    type: [String],
+  },
+  isBlocked: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 export default mongoose.model("user", userSchema);

@@ -2,10 +2,13 @@ import Products from "../Model/ProductModel.js";
 
 export const GetProducts = async (req, res) => {
   try {
-    const allProducts = await Products.find({});
+    const allProducts = await Products.find({
+      isBlocked: false,
+      isVerified: true,
+    });
 
     if (allProducts.length) {
-      res.status(200).json({
+      return res.status(200).json({
         status: "success",
         message: "All Products Fetched",
         products: allProducts,

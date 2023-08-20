@@ -1,0 +1,55 @@
+import Product from "../Model/ProductModel.js";
+
+// Ratings
+
+export const addRatings = async (req, res) => {
+  try {
+    const { productId, rating } = req.body;
+
+    const product = await Product.findByIdAndUpdate(
+      productId,
+      { $push: { ratings: rating } },
+      { new: true }
+    );
+
+    if (product) {
+      return res.status(201).json({
+        success: true,
+        message: "Ratings added successfully",
+        Product: product,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error,
+    });
+  }
+};
+
+// Comments
+
+export const addComments = async (req, res) => {
+  try {
+    const { productId, comment, userId } = req.body;
+
+    const product = await Product.findByIdAndUpdate(
+      productId,
+      { $push: { comments: { comment, userId: userId } } },
+      { new: true }
+    );
+
+    if (product) {
+      return res.status(201).json({
+        success: true,
+        message: "Comments added successfully",
+        Product: product,
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error,
+    });
+  }
+};
