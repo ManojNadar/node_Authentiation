@@ -25,7 +25,7 @@ export const MyUserContext = createContext();
 const MyContext = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  console.log("userDetails - ", state.currentuser, "token - ", state?.token);
+//   console.log("userDetails - ", state.currentuser, "token - ", state?.token);
 
   const login = (token, userData) => {
     localStorage.setItem("userToken", JSON.stringify(token));
