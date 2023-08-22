@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
 import { Login, Register, currentuser } from "./Controllers/UserController.js";
 import { addproduct } from "./Controllers/AddProduct.js";
 import { productMiddleWare } from "./Middleware/ProductMiddleware.js";
@@ -33,6 +34,7 @@ import { addComments, addRatings } from "./Controllers/RatingComments.js";
 
 const app = express();
 dotenv.config();
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {

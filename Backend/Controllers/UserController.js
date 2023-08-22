@@ -4,7 +4,8 @@ import jwt from "jsonwebtoken";
 
 export const Register = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { regData } = req.body;
+    const { name, email, password, role } = regData;
 
     if (name && email && password && role) {
       const isEmailExist = await User.find({ email });
@@ -13,7 +14,7 @@ export const Register = async (req, res) => {
 
       if (isEmailExist.length) {
         res.json({
-          status: "Error",
+          success: false,
           message: "Email already registered Please try another email",
         });
         flag = true;
@@ -29,16 +30,21 @@ export const Register = async (req, res) => {
         });
         await userDetail.save();
         return res.json({
-          status: "Success",
+          success: true,
           message: "Registered Success",
           data: userDetail,
         });
+      } else {
+        return res.json({
+          success: false,
+          message: "already an user",
+        });
       }
     } else {
-      return res.json({ status: "Error", message: "All fileds are mandatory" });
+      return res.json({ success: false, message: "All fileds are mandatory" });
     }
   } catch (error) {
-    return res.json({ status: "Error", message: "Error from try catch" });
+    return res.json({ success: false, message: "Error from try catch" });
   }
 };
 
@@ -46,7 +52,7 @@ export const Register = async (req, res) => {
 
 export const Login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body.loginData;
 
     if (email && password) {
       const user = await User.findOne({ email });
@@ -75,32 +81,32 @@ export const Login = async (req, res) => {
           //   console.log(token);
 
           return res.json({
-            status: "Success",
+            success: true,
             message: "Logged In Success",
-            data: userObj,
+            userData: userObj,
             token: token,
           });
         } else {
           return res.json({
-            status: "Error",
-            message: "Password doesnot match",
+            success: false,
+            message: "invalid Credential",
           });
         }
       } else {
         return res.json({
-          status: "Error",
+          success: false,
           message: "User not Found",
         });
       }
     } else {
       return res.json({
-        status: "Error",
+        success: false,
         message: "All fields are mandatory",
       });
     }
   } catch (error) {
     return res.json({
-      status: "Error",
+      success: false,
       message: "Error from Catch Block",
     });
   }
