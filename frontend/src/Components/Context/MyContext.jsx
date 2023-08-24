@@ -27,7 +27,7 @@ const MyContext = ({ children }) => {
 
   //   console.log("userDetails - ", state.currentuser, "token - ", state?.token);
 
-  const login = (token, userData) => {
+  const login = (userData, token) => {
     localStorage.setItem("userToken", JSON.stringify(token));
     dispatch({
       type: "LOGIN",
