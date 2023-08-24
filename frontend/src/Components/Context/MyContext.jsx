@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useReducer } from "react";
+import axios from "axios";
 
-const initialState = { currentuser: null, token: null };
+const initialState = { currentuser: null };
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -8,12 +9,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         currentuser: action.payload,
-        token: action.token,
       };
     case "LOGOUT":
       return {
+        ...state,
         currentuser: null,
-        token: null,
       };
     default:
       return state;
@@ -25,33 +25,43 @@ export const MyUserContext = createContext();
 const MyContext = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-//   console.log("userDetails - ", state.currentuser, "token - ", state?.token);
+  //   console.log("userDetails - ", state.currentuser, "token - ", state?.token);
 
   const login = (token, userData) => {
     localStorage.setItem("userToken", JSON.stringify(token));
-    localStorage.setItem("userData", JSON.stringify(userData));
     dispatch({
       type: "LOGIN",
       payload: userData,
-      token: token,
     });
   };
   const logout = () => {
     localStorage.removeItem("userToken");
-    localStorage.removeItem("userData");
     dispatch({
       type: "LOGOUT",
     });
   };
 
   useEffect(() => {
-    const getToken = JSON.parse(localStorage.getItem("userToken"));
-    const userData = JSON.parse(localStorage.getItem("userData"));
-    dispatch({
-      type: "LOGIN",
-      token: getToken,
-      payload: userData,
-    });
+    async function getCurrentUseData() {
+      const getToken = JSON.parse(localStorage.getItem("userToken"));
+
+      const response = await axios.post("http://localhost:8000/currentuser", {
+        getToken,
+      });
+
+      if (response.data.success) {
+        dispatch({
+          type: "LOGIN",
+          payload: response.data.user,
+        });
+      } else {
+        dispatch({
+          type: "LOGOUT",
+        });
+      }
+    }
+
+    getCurrentUseData();
   }, []);
 
   return (

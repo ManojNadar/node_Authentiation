@@ -112,21 +112,21 @@ export const Login = async (req, res) => {
   }
 };
 
-export const currentuser = async (req, res) => {
+export const getcurrentuser = async (req, res) => {
   try {
     const { token } = req.body;
 
     if (!token)
       return res
         .status(404)
-        .json({ status: "error", message: "token is required" });
+        .json({ success: false, message: "token is required" });
 
     const decodeToken = jwt.verify(token, process.env.SECRET_KEY);
 
     if (!decodeToken) {
       return res
         .status(404)
-        .json({ status: "error", message: "not a valid token" });
+        .json({ success: false, message: "not a valid token" });
     }
 
     const userId = decodeToken?.userId;
@@ -134,7 +134,7 @@ export const currentuser = async (req, res) => {
     const user = await User.findById(userId);
 
     if (!user) {
-      res.status(404).json({ status: "error", message: "user not Found" });
+      res.status(404).json({ success: false, message: "user not Found" });
     }
 
     const userObj = {
@@ -143,10 +143,10 @@ export const currentuser = async (req, res) => {
       _id: user._id,
     };
 
-    res.status(200).json({ status: "Success", data: userObj });
+    res.status(200).json({ success: true, user: userObj });
 
     // console.log(userObj);
   } catch (error) {
-    res.status(500).json({ status: "error", message: error });
+    res.status(500).json({ success: false, message: error });
   }
 };

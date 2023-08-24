@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { MyUserContext } from "./Context/MyContext";
 const Register = () => {
   const [regData, setRegData] = useState({
     name: "",
@@ -12,6 +13,7 @@ const Register = () => {
   });
 
   const route = useNavigate();
+  const { state } = useContext(MyUserContext);
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -53,6 +55,12 @@ const Register = () => {
       toast.error("All fields are mandatory");
     }
   };
+
+  useEffect(() => {
+    if (state?.currentuser) {
+      route("/");
+    }
+  }, [state]);
 
   return (
     <>

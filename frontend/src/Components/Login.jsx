@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MyUserContext } from "./Context/MyContext";
@@ -12,7 +12,7 @@ const Login = () => {
 
   const route = useNavigate();
 
-  const { login } = useContext(MyUserContext);
+  const { login, state } = useContext(MyUserContext);
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -36,7 +36,6 @@ const Login = () => {
 
         await login(token, userData);
 
-        
         toast.success(response.data.message);
         setLoginData({
           email: "",
@@ -50,6 +49,12 @@ const Login = () => {
       toast.error("All fileds are mandatory");
     }
   };
+
+  useEffect(() => {
+    if (state?.currentuser) {
+      route("/");
+    }
+  }, [state]);
   return (
     <div>
       <h2>Login</h2>
