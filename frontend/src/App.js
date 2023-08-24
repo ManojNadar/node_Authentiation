@@ -3,8 +3,14 @@ import "./App.css";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Home from "./Components/Home";
+import { useContext } from "react";
+import { MyUserContext } from "./Components/Context/MyContext";
 
 function App() {
+  const { state } = useContext(MyUserContext);
+
+  console.log(state?.currentuser);
+
   return (
     <>
       <div className="App">

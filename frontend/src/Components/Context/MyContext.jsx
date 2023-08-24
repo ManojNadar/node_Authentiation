@@ -43,10 +43,12 @@ const MyContext = ({ children }) => {
 
   useEffect(() => {
     async function getCurrentUseData() {
-      const getToken = JSON.parse(localStorage.getItem("userToken"));
+      const token = JSON.parse(localStorage.getItem("userToken"));
+
+      console.log(token);
 
       const response = await axios.post("http://localhost:8000/currentuser", {
-        getToken,
+        token,
       });
 
       if (response.data.success) {

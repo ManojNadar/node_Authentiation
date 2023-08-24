@@ -10,7 +10,7 @@ const Home = () => {
     <div>
       <h1>Home {state?.currentuser?.name}</h1>
 
-      {state?.token ? (
+      {state?.currentuser ? (
         <button onClick={() => logout()}>LOGOUT</button>
       ) : (
         <button onClick={() => route("/login")}>Login</button>
