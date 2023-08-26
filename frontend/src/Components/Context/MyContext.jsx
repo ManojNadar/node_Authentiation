@@ -45,21 +45,21 @@ const MyContext = ({ children }) => {
     async function getCurrentUseData() {
       const token = JSON.parse(localStorage.getItem("userToken"));
 
-      console.log(token);
-
-      const response = await axios.post("http://localhost:8000/currentuser", {
-        token,
-      });
-
-      if (response.data.success) {
-        dispatch({
-          type: "LOGIN",
-          payload: response.data.user,
+      if (token) {
+        const response = await axios.post("http://localhost:8000/currentuser", {
+          token,
         });
-      } else {
-        dispatch({
-          type: "LOGOUT",
-        });
+
+        if (response.data.success) {
+          dispatch({
+            type: "LOGIN",
+            payload: response.data.user,
+          });
+        } else {
+          dispatch({
+            type: "LOGOUT",
+          });
+        }
       }
     }
 

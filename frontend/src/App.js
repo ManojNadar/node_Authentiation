@@ -5,6 +5,9 @@ import Login from "./Components/Login";
 import Home from "./Components/Home";
 import { useContext } from "react";
 import { MyUserContext } from "./Components/Context/MyContext";
+import Navbar from "./Components/Navbar";
+import AddProduct from "./Components/Products/AddProduct";
+import YourProducts from "./Components/Products/YourProducts";
 
 function App() {
   const { state } = useContext(MyUserContext);
@@ -14,10 +17,13 @@ function App() {
   return (
     <>
       <div className="App">
+        <Navbar />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Register />} />
+          <Route exact path="/add-product" element={<AddProduct />} />
+          <Route exact path="/your-products" element={<YourProducts />} />
         </Routes>
       </div>
     </>

@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import morgan from "morgan";
 import {
   Login,
   Register,
@@ -38,8 +39,9 @@ import { addComments, addRatings } from "./Controllers/RatingComments.js";
 
 const app = express();
 dotenv.config();
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+app.use(morgan("dev"));
 
 app.get("/", (req, res) => {
   res.send("working");
@@ -50,7 +52,7 @@ app.post("/login", Login);
 app.post("/currentuser", getcurrentuser);
 app.post("/addproduct", productMiddleWare, addproduct);
 app.get("/getproducts", GetProducts);
-app.get("/ownproducts", productMiddleWare, OwnProducts);
+app.post("/ownproducts", productMiddleWare, OwnProducts);
 app.patch("/updateproduct", productMiddleWare, UpdateProduct);
 app.post("/add-to-cart", addtocart);
 app.get("/get-cart-products", getCartProducts);

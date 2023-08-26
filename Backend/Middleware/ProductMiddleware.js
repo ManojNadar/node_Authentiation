@@ -7,7 +7,7 @@ export const productMiddleWare = async (req, res, next) => {
 
     if (!token)
       return res.status(404).json({
-        status: "error",
+        success: false,
         message: "token is required",
       });
 
@@ -15,7 +15,7 @@ export const productMiddleWare = async (req, res, next) => {
     if (!decodeToken) {
       return res
         .status(404)
-        .json({ status: "error", message: "not a valid token" });
+        .json({ success: false, message: "not a valid token" });
     }
 
     const userId = decodeToken?.userId;
@@ -27,13 +27,11 @@ export const productMiddleWare = async (req, res, next) => {
     if (user && user?.role === "Seller") {
       next();
     } else {
-      res
-        .status(404)
-        .json({ status: "error", message: "You are not a seller" });
+      res.status(404).json({ success: false, message: "You are not a seller" });
     }
   } catch (error) {
     res
       .status(500)
-      .json({ status: "error", message: "error from try catch block" });
+      .json({ success: false, message: "error from try catch block" });
   }
 };

@@ -9,7 +9,7 @@ export const OwnProducts = async (req, res) => {
 
     if (!decodeToken) {
       return res.status(404).json({
-        status: "error",
+        success: false,
         message: "not a valid token",
       });
     }
@@ -20,19 +20,19 @@ export const OwnProducts = async (req, res) => {
 
     if (yourProducts.length) {
       res.status(200).json({
-        status: "success",
+        success: true,
         message: "your products",
         yourProducts: yourProducts,
       });
     } else {
       res.status(404).json({
-        status: "error",
+        success: false,
         message: "Sorry no products",
       });
     }
   } catch (error) {
     return res.status(500).json({
-      status: "error",
+      success: false,
       message: "error from catch block",
       error: error,
     });

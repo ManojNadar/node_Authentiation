@@ -34,7 +34,7 @@ const Login = () => {
         const token = response.data.token;
         const userData = response.data.userData;
 
-        await login(token, userData);
+        await login(userData, token);
 
         toast.success(response.data.message);
         setLoginData({

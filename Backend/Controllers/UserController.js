@@ -75,6 +75,7 @@ export const Login = async (req, res) => {
             name: user.name,
             email: user.email,
             _id: user._id,
+            role: user.role,
           };
 
           const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
@@ -141,6 +142,7 @@ export const getcurrentuser = async (req, res) => {
       name: user.name,
       email: user.email,
       _id: user._id,
+      role: user.role,
     };
 
     res.status(200).json({ success: true, user: userObj });
