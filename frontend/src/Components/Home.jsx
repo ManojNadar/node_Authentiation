@@ -7,7 +7,7 @@ const Home = () => {
   const { logout, state } = useContext(MyUserContext);
   const [products, setProducts] = useState([]);
 
-  console.log(products);
+  // console.log(products);
 
   const route = useNavigate();
 

@@ -1,13 +1,15 @@
 import User from "../Model/UserModel.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { sendTwilioMessage } from "../helpers/Sms.js";
+import { v4 as uuidv4 } from "uuid";
 
 export const Register = async (req, res) => {
   try {
     const { regData } = req.body;
-    const { name, email, password, role } = regData;
+    const { name, email, password, number, role } = regData;
 
-    if (name && email && password && role) {
+    if (name && email && password && role && number) {
       const isEmailExist = await User.find({ email });
 
       let flag = false;
@@ -27,6 +29,7 @@ export const Register = async (req, res) => {
           email,
           password: hashPass,
           role,
+          number,
         });
         await userDetail.save();
         return res.json({
@@ -143,6 +146,7 @@ export const getcurrentuser = async (req, res) => {
       email: user.email,
       _id: user._id,
       role: user.role,
+      number: user.number,
     };
 
     res.status(200).json({ success: true, user: userObj });
@@ -150,5 +154,102 @@ export const getcurrentuser = async (req, res) => {
     // console.log(userObj);
   } catch (error) {
     res.status(500).json({ success: false, message: error });
+  }
+};
+
+export const GetNumber = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId)
+      return res
+        .status(404)
+        .json({ success: false, message: "user Id is required" });
+
+    const user = await User.findById(userId);
+
+    if (user) {
+      return res.status(200).json({
+        success: true,
+        number: user.number,
+        numberVerified: user.isNumberVerified,
+      });
+    }
+    return res
+      .status(404)
+      .json({ success: false, message: "number not Found" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "server error" });
+  }
+};
+
+export const sendOtp = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    if (!userId)
+      return res
+        .status(404)
+        .json({ success: false, message: "user Id is required" });
+
+    const userNumber = await User.findById(userId);
+    const randomOtp = uuidv4();
+    const otp = randomOtp.slice(0, 6);
+
+    const message = `Hi your mobile verification otp is ${otp} `;
+    if (userNumber) {
+      const responseTwilio = sendTwilioMessage(userNumber.number, message);
+
+      // console.log(responseTwilio);
+
+      if (responseTwilio) {
+        userNumber.otpForNumberVerification = otp;
+        await userNumber.save();
+        return res.status(200).json({
+          success: true,
+          message: "otp sent to your number",
+        });
+      }
+    }
+    return res.status(404).json({ success: false, message: "user not Found" });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: "server error" });
+  }
+};
+
+// --------------------------
+
+export const verifyOtp = async (req, res) => {
+  try {
+    const { otp, userId } = req.body;
+
+    if (!otp || !userId)
+      return res
+        .status(404)
+        .json({ success: false, message: "otp & userId is required" });
+
+    const user = await User.findById(userId);
+
+    if (user) {
+      if (user.otpForNumberVerification == otp) {
+        user.isNumberVerified = true;
+        // user.otpForNumberVerification = "";
+        await user.save();
+        return res.status(200).json({
+          success: true,
+          message: "otp verification successfully done",
+          numberVerified: user.isNumberVerified,
+        });
+      }
+    }
+
+    return res.status(404).json({
+      success: false,
+      message: "user not found",
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ success: false, error: "error from catch block" });
   }
 };

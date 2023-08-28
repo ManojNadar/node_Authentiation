@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MyUserContext } from "./Context/MyContext";
 import { useNavigate } from "react-router-dom";
 
@@ -10,8 +10,9 @@ const AuthProtected = ({ children }) => {
     if (!state?.currentuser?.name) {
       route("/login");
     }
-  }, [state, route]);
-  return state?.curentuser?.name ? children : null;
+  }, [state]);
+
+  return state?.currentuser?.name ? children : null;
 };
 
 export default AuthProtected;

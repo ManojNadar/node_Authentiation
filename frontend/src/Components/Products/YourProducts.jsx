@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SellerProtected from "../SellerProtected";
 import axios from "axios";
-import { toast } from "react-hot-toast";
 
 const YourProducts = () => {
   const [yourProducts, setYourProducts] = useState();

@@ -8,6 +8,7 @@ import { MyUserContext } from "./Components/Context/MyContext";
 import Navbar from "./Components/Navbar";
 import AddProduct from "./Components/Products/AddProduct";
 import YourProducts from "./Components/Products/YourProducts";
+import Profile from "./Components/Profile";
 
 function App() {
   const { state } = useContext(MyUserContext);
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/add-product" element={<AddProduct />} />
           <Route exact path="/your-products" element={<YourProducts />} />
+          <Route exact path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </>

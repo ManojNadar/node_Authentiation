@@ -10,6 +10,7 @@ const Register = () => {
     password: "",
     confirmPassword: "",
     role: "Buyer",
+    number: "",
   });
 
   const route = useNavigate();
@@ -26,9 +27,9 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const { name, email, password, confirmPassword, role } = regData;
+    const { name, email, password, confirmPassword, role, number } = regData;
 
-    if (name && email && password && confirmPassword && role) {
+    if (name && email && password && confirmPassword && role && number) {
       if (password === confirmPassword) {
         const response = await axios.post("http://localhost:8000/register", {
           regData,
@@ -42,6 +43,7 @@ const Register = () => {
             password: "",
             confirmPassword: "",
             role: "Buyer",
+            number: "",
           });
 
           route("/login");
@@ -60,14 +62,14 @@ const Register = () => {
     if (state?.currentuser) {
       route("/");
     }
-  }, [state]);
+  }, [state, route]);
 
   return (
     <>
       <h2>Regsiter</h2>
 
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form className="formContainer" onSubmit={handleSubmit}>
+        <div className="allInputDivs">
           <label>Name</label> <br />
           <input
             type="text"
@@ -76,7 +78,7 @@ const Register = () => {
             value={regData.name}
           />
         </div>
-        <div>
+        <div className="allInputDivs">
           <label>Email</label> <br />
           <input
             type="email"
@@ -85,14 +87,23 @@ const Register = () => {
             value={regData.email}
           />
         </div>
-        <div>
+        <div className="allInputDivs">
+          <label>Phone</label> <br />
+          <input
+            type="number"
+            onChange={handleChange}
+            name="number"
+            value={regData.number}
+          />
+        </div>
+        <div className="allInputDivs">
           <label>Role</label> <br />
           <select name="role" onChange={handleChange} value={regData.role}>
             <option value="Buyer">Buyer</option>
             <option value="Seller">Seller</option>
           </select>
         </div>
-        <div>
+        <div className="allInputDivs">
           <label>password</label> <br />
           <input
             type="password"
@@ -101,7 +112,7 @@ const Register = () => {
             value={regData.password}
           />
         </div>
-        <div>
+        <div className="allInputDivs">
           <label>confirm password</label> <br />
           <input
             type="password"
@@ -111,7 +122,7 @@ const Register = () => {
           />
         </div>
 
-        <div>
+        <div className="allInputDivs">
           <input type="submit" value="Register" />
         </div>
 

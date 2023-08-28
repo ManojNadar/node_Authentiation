@@ -4,9 +4,12 @@ import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
 import {
+  GetNumber,
   Login,
   Register,
   getcurrentuser,
+  sendOtp,
+  verifyOtp,
 } from "./Controllers/UserController.js";
 import { addproduct } from "./Controllers/AddProduct.js";
 import { productMiddleWare } from "./Middleware/ProductMiddleware.js";
@@ -49,11 +52,21 @@ app.get("/", (req, res) => {
 
 app.post("/register", Register);
 app.post("/login", Login);
+app.post("/getnumber", GetNumber);
+
+// otp
+
+app.post("/sendotp", sendOtp);
+app.post("/verifyotp", verifyOtp);
+
+//
 app.post("/currentuser", getcurrentuser);
 app.post("/addproduct", productMiddleWare, addproduct);
 app.get("/getproducts", GetProducts);
 app.post("/ownproducts", productMiddleWare, OwnProducts);
 app.patch("/updateproduct", productMiddleWare, UpdateProduct);
+
+
 app.post("/add-to-cart", addtocart);
 app.get("/get-cart-products", getCartProducts);
 app.delete("/delete-product", productMiddleWare, DeleteProduct);

@@ -58,8 +58,8 @@ const Login = () => {
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form className="formContainer" onSubmit={handleSubmit}>
+        <div className="allInputDivs">
           <label>Email</label> <br />
           <input
             type="email"
@@ -69,7 +69,7 @@ const Login = () => {
           />
         </div>
 
-        <div>
+        <div className="allInputDivs">
           <label>password</label> <br />
           <input
             type="password"
@@ -79,7 +79,7 @@ const Login = () => {
           />
         </div>
 
-        <div>
+        <div className="allInputDivs">
           <input type="submit" value="Login" />
         </div>
 
