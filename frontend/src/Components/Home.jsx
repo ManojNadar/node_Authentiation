@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MyUserContext } from "./Context/MyContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "./Api/index";
+import { toast } from "react-hot-toast";
 
 const Home = () => {
   const { logout, state } = useContext(MyUserContext);
@@ -14,12 +15,14 @@ const Home = () => {
   useEffect(() => {
     async function allProducts() {
       try {
-        const response = await axios.get("http://localhost:8000/getproducts");
+        const response = await api.get("/getproducts");
         if (response.data.success) {
           setProducts(response.data.allProducts);
+        } else {
+          toast.error(response.data.message);
         }
       } catch (error) {
-        console.log("error from catch block");
+        toast.error(error.response.data.message);
       }
     }
     allProducts();

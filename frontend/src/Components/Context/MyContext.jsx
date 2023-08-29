@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useReducer } from "react";
-import axios from "axios";
+import api from "../Api/index";
 
 const initialState = { currentuser: null };
 
@@ -46,7 +46,7 @@ const MyContext = ({ children }) => {
       const token = JSON.parse(localStorage.getItem("userToken"));
 
       if (token) {
-        const response = await axios.post("http://localhost:8000/currentuser", {
+        const response = await api.post("/currentuser", {
           token,
         });
 

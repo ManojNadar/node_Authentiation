@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { MyUserContext } from "./Context/MyContext";
+import api from "./Api/index";
 const Register = () => {
   const [regData, setRegData] = useState({
     name: "",
@@ -31,7 +32,7 @@ const Register = () => {
 
     if (name && email && password && confirmPassword && role && number) {
       if (password === confirmPassword) {
-        const response = await axios.post("http://localhost:8000/register", {
+        const response = await api.post("/register", {
           regData,
         });
 

@@ -1,8 +1,8 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MyUserContext } from "./Context/MyContext";
+import api from "./Api/index";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -12,7 +12,7 @@ const Login = () => {
 
   const route = useNavigate();
 
-  const { login, state } = useContext(MyUserContext);
+  const { login, state, logout } = useContext(MyUserContext);
 
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -26,24 +26,28 @@ const Login = () => {
     const { email, password } = loginData;
 
     if (email && password) {
-      const response = await axios.post("http://localhost:8000/login", {
-        loginData,
-      });
-
-      if (response.data.success) {
-        const token = response.data.token;
-        const userData = response.data.userData;
-
-        await login(userData, token);
-
-        toast.success(response.data.message);
-        setLoginData({
-          email: "",
-          password: "",
+      try {
+        const response = await api.post("/login", {
+          loginData,
         });
-        route("/");
-      } else {
-        toast.error(response.data.message);
+
+        if (response.data.success) {
+          const token = response.data.token;
+          const userData = response.data.userData;
+
+          await login(userData, token);
+
+          toast.success(response.data.message);
+          setLoginData({
+            email: "",
+            password: "",
+          });
+          route("/");
+        } else {
+          toast.error(response.data.message);
+        }
+      } catch (error) {
+        logout();
       }
     } else {
       toast.error("All fileds are mandatory");

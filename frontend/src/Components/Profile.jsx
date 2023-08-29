@@ -4,6 +4,7 @@ import { MyUserContext } from "./Context/MyContext";
 import AuthProtected from "./AuthProtected";
 import { toast } from "react-hot-toast";
 import { LuVerified } from "react-icons/lu";
+import api from "./Api/index";
 
 const Profile = () => {
   const [number, setNumber] = useState();
@@ -18,7 +19,7 @@ const Profile = () => {
 
   const sendOtp = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/sendotp", {
+      const response = await api.post("/sendotp", {
         userId,
       });
 
@@ -40,7 +41,7 @@ const Profile = () => {
 
     if (otp) {
       try {
-        const response = await axios.post("http://localhost:8000/verifyotp", {
+        const response = await api.post("/verifyotp", {
           userId: state?.currentuser?._id,
           otp,
         });
@@ -65,12 +66,11 @@ const Profile = () => {
   useEffect(() => {
     async function getNumber() {
       try {
-        const response = await axios.post("http://localhost:8000/getnumber", {
+        const response = await api.post("/getnumber", {
           userId,
         });
 
         if (response.data.success) {
-          
           //   console.log(response.data.isNumberVerified);
           //   console.log(response.data.number);
 
