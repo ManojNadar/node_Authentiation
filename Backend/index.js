@@ -83,6 +83,7 @@ app.patch("/unblock-product", adminMiddleware, unBlockProduct);
 app.patch("/verify-product", adminMiddleware, verifyProduct);
 
 // get from admin
+
 app.get("/get-all-buyers", adminMiddleware, getAllBuyers);
 app.get("/get-all-sellers", adminMiddleware, getAllSellers);
 app.get("/get-all-products", adminMiddleware, getAllProducts);

@@ -14,7 +14,7 @@ const Profile = () => {
 
   const userId = state?.currentuser?._id;
 
-  console.log(isNumberVerified);
+  // console.log(isNumberVerified);
 
   const sendOtp = async () => {
     try {
@@ -32,10 +32,10 @@ const Profile = () => {
   };
 
   const verifyOtp = async (e) => {
-    // alert("clicked");
     // console.log(userId);
     // console.log(state?.currentuser?._id);
     // console.log(otp);
+
     e.preventDefault();
 
     if (otp) {
@@ -46,7 +46,7 @@ const Profile = () => {
         });
 
         if (response.data.success) {
-          console.log(response.data);
+          // console.log(response.data);
           setIsOtpSent(false);
           setIsNumberVerified(response.data.numberVerified);
           toast.success(response.data.message);
@@ -70,8 +70,10 @@ const Profile = () => {
         });
 
         if (response.data.success) {
+          
           //   console.log(response.data.isNumberVerified);
           //   console.log(response.data.number);
+
           setNumber(response.data.number);
           setIsNumberVerified(response.data.numberVerified);
         }

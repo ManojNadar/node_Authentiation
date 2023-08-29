@@ -217,7 +217,7 @@ export const sendOtp = async (req, res) => {
   }
 };
 
-// --------------------------
+// -------------------------- //
 
 export const verifyOtp = async (req, res) => {
   try {
@@ -253,3 +253,5 @@ export const verifyOtp = async (req, res) => {
       .json({ success: false, error: "error from catch block" });
   }
 };
+
+
