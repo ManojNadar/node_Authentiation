@@ -19,7 +19,6 @@ const Register = () => {
 
   const handleChange = (e) => {
     const { value, name } = e.target;
-
     setRegData({ ...regData, [name]: value });
   };
 

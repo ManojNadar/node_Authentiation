@@ -31,7 +31,9 @@ export const Register = async (req, res) => {
           role,
           number,
         });
+
         await userDetail.save();
+
         return res.json({
           success: true,
           message: "Registered Success",
@@ -81,11 +83,11 @@ export const Login = async (req, res) => {
             role: user.role,
           };
 
-          const expiryTime = user.role == "Seller" ? "4h" : "15000";
+          // const expiryTime = user.role == "Seller" ? "4h" : "15000";
 
-          const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, {
-            expiresIn: expiryTime,
-          });
+          const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY);
+
+          // {expiresIn: expiryTime},
           //   console.log(token);
 
           return res.json({

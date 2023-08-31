@@ -39,7 +39,8 @@ import {
 } from "./Controllers/AdminController.js";
 import { adminMiddleware, isvalidUser } from "./Middleware/AdminMiddleware.js";
 import { addComments, addRatings } from "./Controllers/RatingComments.js";
-import { CheckToken } from "./Middleware/CheckToken.js";
+import { GetEditProduct } from "./Controllers/GetEditProduct.js";
+// import { CheckToken } from "./Middleware/CheckToken.js";
 
 const app = express();
 dotenv.config();
@@ -53,6 +54,7 @@ app.get("/", (req, res) => {
 
 app.post("/register", Register);
 app.post("/login", Login);
+app.post("/currentuser", getcurrentuser);
 app.post("/getnumber", GetNumber);
 
 // otp -- --- --- --- ----
@@ -62,10 +64,10 @@ app.post("/verifyotp", verifyOtp);
 
 // --------------------
 
-app.post("/currentuser", getcurrentuser);
 app.post("/addproduct", productMiddleWare, addproduct);
-app.get("/getproducts", CheckToken, GetProducts);
+app.get("/getproducts", GetProducts);
 app.post("/ownproducts", productMiddleWare, OwnProducts);
+app.post("/geteditproduct", productMiddleWare, GetEditProduct);
 app.patch("/updateproduct", productMiddleWare, UpdateProduct);
 
 app.post("/add-to-cart", addtocart);

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SellerProtected from "../SellerProtected";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const YourProducts = () => {
   const [yourProducts, setYourProducts] = useState();
+
+  const route = useNavigate();
 
   useEffect(() => {
     async function getYourProdcuts() {
@@ -44,14 +47,15 @@ const YourProducts = () => {
             }}
           >
             {yourProducts.map((product) => (
-              <div
-                className="singleProd"
-                style={{ marginLeft: "5%" }}
-                key={product._id}
-              >
-                <img src={product.image} />
+              <div className="singleProd" key={product._id}>
+                <div className="singleImage">
+                  <img src={product.image} />
+                </div>
                 <h2>Name : {product.title}</h2>
                 <h3>Price : {product.price}</h3>
+                <button onClick={() => route(`/update-product/${product._id}`)}>
+                  Edit
+                </button>
               </div>
             ))}
           </div>

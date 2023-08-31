@@ -37,7 +37,7 @@ const Navbar = () => {
             <h3 onClick={() => route("/profile")}>Profile</h3>
 
             {state?.currentuser?.role == "Buyer" && <h3>Cart</h3>}
-            <h3 onClick={() => logout()}>Logout</h3>
+            <h3 onClick={logout}>Logout</h3>
           </div>
         ) : (
           <h3 onClick={() => route("/login")}>Login/Register</h3>

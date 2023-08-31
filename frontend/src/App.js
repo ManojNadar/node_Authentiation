@@ -9,11 +9,12 @@ import Navbar from "./Components/Navbar";
 import AddProduct from "./Components/Products/AddProduct";
 import YourProducts from "./Components/Products/YourProducts";
 import Profile from "./Components/Profile";
+import UpdateProduct from "./Components/Products/UpdateProduct";
 
 function App() {
   const { state } = useContext(MyUserContext);
 
-  console.log(state?.currentuser);
+  // console.log(state?.currentuser);
 
   return (
     <>
@@ -25,6 +26,11 @@ function App() {
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/add-product" element={<AddProduct />} />
           <Route exact path="/your-products" element={<YourProducts />} />
+          <Route
+            exact
+            path="/update-product/:productId"
+            element={<UpdateProduct />}
+          />
           <Route exact path="/profile" element={<Profile />} />
         </Routes>
       </div>

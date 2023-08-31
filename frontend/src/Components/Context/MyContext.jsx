@@ -34,6 +34,7 @@ const MyContext = ({ children }) => {
       payload: userData,
     });
   };
+
   const logout = () => {
     localStorage.removeItem("userToken");
     dispatch({

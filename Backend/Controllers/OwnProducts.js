@@ -14,18 +14,18 @@ export const OwnProducts = async (req, res) => {
       });
     }
 
-    const userId = decodeToken.userId;
+    const userId = decodeToken?.userId;
 
     const yourProducts = await Products.find({ userId });
 
     if (yourProducts.length) {
-      res.status(200).json({
+      return res.status(200).json({
         success: true,
         message: "your products",
         yourProducts: yourProducts,
       });
     } else {
-      res.status(404).json({
+      return res.status(404).json({
         success: false,
         message: "Sorry no products",
       });

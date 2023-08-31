@@ -34,7 +34,7 @@ const Home = () => {
           <h1>Home {state?.currentuser?.name}</h1>
 
           {state?.currentuser ? (
-            <button onClick={() => logout()}>LOGOUT</button>
+            <button onClick={logout}>LOGOUT</button>
           ) : (
             <button onClick={() => route("/login")}>Login</button>
           )}
@@ -52,7 +52,7 @@ const Home = () => {
             {products.map((product) => (
               <div className="singleProd" key={product._id}>
                 <div className="singleImage">
-                  <img src={product.image} />
+                  <img src={product.image} alt="" />
                 </div>
                 <h2>Name : {product.title}</h2>
                 <h3>Price : {product.price}</h3>
