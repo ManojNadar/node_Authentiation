@@ -3,16 +3,17 @@ import "./App.css";
 import Register from "./Components/Register";
 import Login from "./Components/Login";
 import Home from "./Components/Home";
-import { useContext } from "react";
-import { MyUserContext } from "./Components/Context/MyContext";
+// import { useContext } from "react";
+// import { MyUserContext } from "./Components/Context/MyContext";
 import Navbar from "./Components/Navbar";
 import AddProduct from "./Components/Products/AddProduct";
 import YourProducts from "./Components/Products/YourProducts";
 import Profile from "./Components/Profile";
 import UpdateProduct from "./Components/Products/UpdateProduct";
+import Cart from "./Components/Cart/Cart";
 
 function App() {
-  const { state } = useContext(MyUserContext);
+  // const { state } = useContext(MyUserContext);
 
   // console.log(state?.currentuser);
 
@@ -32,6 +33,7 @@ function App() {
             element={<UpdateProduct />}
           />
           <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/cart" element={<Cart />} />
         </Routes>
       </div>
     </>

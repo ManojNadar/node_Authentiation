@@ -22,11 +22,32 @@ const Home = () => {
           toast.error(response.data.message);
         }
       } catch (error) {
-        toast.error(error.response.data.message);
+        // toast.error("error");
+        console.log(error);
       }
     }
     allProducts();
   }, []);
+
+  const addToCart = async (productId) => {
+    try {
+      const token = JSON.parse(localStorage.getItem("userToken"));
+
+      const response = await api.post("/add-to-cart", {
+        productId,
+        token,
+      });
+
+      if (response?.data?.success) {
+        toast.success("product added to cart Successfully");
+        // route("/your-products");
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="homeBodyContainer">
@@ -56,6 +77,10 @@ const Home = () => {
                 </div>
                 <h2>Name : {product.title}</h2>
                 <h3>Price : {product.price}</h3>
+
+                <button onClick={() => addToCart(product._id)}>
+                  Add to Cart
+                </button>
               </div>
             ))}
           </div>

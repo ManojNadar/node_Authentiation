@@ -69,11 +69,12 @@ app.get("/getproducts", GetProducts);
 app.post("/ownproducts", productMiddleWare, OwnProducts);
 app.post("/geteditproduct", productMiddleWare, GetEditProduct);
 app.patch("/updateproduct", productMiddleWare, UpdateProduct);
+app.post("/delete-product", productMiddleWare, DeleteProduct);
 
 app.post("/add-to-cart", addtocart);
-app.get("/get-cart-products", getCartProducts);
-app.delete("/delete-product", productMiddleWare, DeleteProduct);
-app.delete("/delete-cart-product", deleteCartProduct);
+app.post("/get-cart-products", getCartProducts);
+
+app.post("/delete-cart-product", deleteCartProduct);
 app.post("/addishlist", addWishList);
 app.post("/getwishlist", getWishList);
 

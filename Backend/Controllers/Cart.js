@@ -13,6 +13,14 @@ export const addtocart = async (req, res) => {
     const userId = decodeToken?.userId;
 
     const user = await User.findById({ _id: userId });
+    // console.log(user?.cart);
+    for (let i = 0; i < user?.cart?.length; i++) {
+      if (user.cart[i] == productId) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Product already added" });
+      }
+    }
 
     user?.cart.push(productId);
     await user.save();
@@ -76,19 +84,32 @@ export const deleteCartProduct = async (req, res) => {
     // ourCartProduct.splice(removeProduct, 1);
 
     const filterCartProduct = ourCartProduct.filter((e) => e !== productId);
+
     user.cart = filterCartProduct;
 
     await user.save();
 
-    return res.status(200).json({
-      status: "success",
-      message: "product removed",
-      filterProduct: filterCartProduct,
-    });
+    const refreshCart = await User.findById({ _id: userId });
+
+    if (refreshCart) {
+      let finalProduct = [];
+      for (let i = 0; i < refreshCart.cart.length; i++) {
+        const product = await ProductModel.findById(refreshCart.cart[i]);
+
+        if (product) {
+          finalProduct.push(product);
+        }
+      }
+      return res.status(200).json({
+        success: true,
+        products: finalProduct,
+        message: "product removed Success",
+      });
+    }
   } catch (error) {
     return res
       .status(500)
-      .json({ status: "error", message: "internal server error" });
+      .json({ success: false, message: "internal server error" });
   }
 };
 
