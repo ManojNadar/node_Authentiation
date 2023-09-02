@@ -57,7 +57,7 @@ const YourProducts = () => {
   };
   return (
     <SellerProtected>
-      <div>
+      <div className="yourProductContainer">
         <h1>Your Products</h1>
 
         {yourProducts?.length ? (
@@ -72,14 +72,20 @@ const YourProducts = () => {
             {yourProducts.map((product) => (
               <div className="singleProd" key={product._id}>
                 <div className="singleImage">
-                  <img src={product.image} />
+                  <img src={product.image} alt="" />
                 </div>
                 <h2>Name : {product.title}</h2>
                 <h3>Price : {product.price}</h3>
-                <button onClick={() => route(`/update-product/${product._id}`)}>
+                <button
+                  className="addToCartBtn"
+                  onClick={() => route(`/update-product/${product._id}`)}
+                >
                   Edit
                 </button>
-                <button onClick={() => deleteProduct(product._id)}>
+                <button
+                  className="deleteBtn"
+                  onClick={() => deleteProduct(product._id)}
+                >
                   Delete
                 </button>
               </div>

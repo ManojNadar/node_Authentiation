@@ -102,16 +102,17 @@ a {
 
 .homeBodyContainer {
   background-color: #282c34;
+  height: 100vh;
 }
 
 .singleProd {
   background-color: grey;
   width: 19%;
-  height: 350px;
+  height: 450px;
   margin-left: 5%;
   border-radius: 5px;
 }
-.singleProd > button {
+.addToCartBtn {
   background-color: green;
   border: none;
   color: white;
@@ -119,6 +120,16 @@ a {
   height: 30px;
   margin-left: 5%;
   border-radius: 5px;
+}
+.deleteBtn {
+  background-color: red;
+  border: none;
+  color: white;
+  width: 50%;
+  height: 30px;
+  margin-left: 5%;
+  border-radius: 5px;
+  margin-top: 2%;
 }
 .singleImage {
   width: 100%;
@@ -179,4 +190,11 @@ a {
   padding-left: 1%;
   font-size: 1.3em;
   font-weight: bolder;
+}
+
+/* yourProductContainer */
+
+.yourProductContainer {
+  height: 100vh;
+  background-color: cadetblue;
 }

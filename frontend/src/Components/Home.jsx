@@ -82,7 +82,10 @@ const Home = () => {
                 <h2>Name : {product.title}</h2>
                 <h3>Price : {product.price}</h3>
 
-                <button onClick={() => addToCart(product._id)}>
+                <button
+                  className="addToCartBtn"
+                  onClick={() => addToCart(product._id)}
+                >
                   Add to Cart
                 </button>
               </div>
