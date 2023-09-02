@@ -160,8 +160,39 @@ export const getWishList = async (req, res) => {
     throw new Error("User not Found");
   } catch (error) {
     return res.status(500).json({
-      status: "error",
+      success: false,
       message: "Catch block Error",
+    });
+  }
+};
+
+export const buyProduct = async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    if (!token)
+      return res.status(404).json({
+        success: false,
+        message: "token is required",
+      });
+
+    const decodeToken = jwt.verify(token, process.env.SECRET_KEY);
+    const userId = decodeToken?.userId;
+
+    const user = await User.findById(userId);
+
+    if (user) {
+      user.cart = [];
+      await user.save();
+      return res.status(200).json({
+        success: true,
+        message: "Product will deliver soon",
+      });
+    }
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "error from catch block",
     });
   }
 };

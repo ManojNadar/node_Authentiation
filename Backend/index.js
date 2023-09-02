@@ -19,6 +19,7 @@ import { OwnProducts } from "./Controllers/OwnProducts.js";
 import {
   addWishList,
   addtocart,
+  buyProduct,
   deleteCartProduct,
   getCartProducts,
   getWishList,
@@ -40,6 +41,7 @@ import {
 import { adminMiddleware, isvalidUser } from "./Middleware/AdminMiddleware.js";
 import { addComments, addRatings } from "./Controllers/RatingComments.js";
 import { GetEditProduct } from "./Controllers/GetEditProduct.js";
+import { SingleProduct } from "./Controllers/SingleProduct.js";
 // import { CheckToken } from "./Middleware/CheckToken.js";
 
 const app = express();
@@ -66,6 +68,7 @@ app.post("/verifyotp", verifyOtp);
 
 app.post("/addproduct", productMiddleWare, addproduct);
 app.get("/getproducts", GetProducts);
+app.post("/singleproduct", SingleProduct);
 app.post("/ownproducts", productMiddleWare, OwnProducts);
 app.post("/geteditproduct", productMiddleWare, GetEditProduct);
 app.patch("/updateproduct", productMiddleWare, UpdateProduct);
@@ -73,6 +76,7 @@ app.post("/delete-product", productMiddleWare, DeleteProduct);
 
 app.post("/add-to-cart", addtocart);
 app.post("/get-cart-products", getCartProducts);
+app.post("/buyproduct", buyProduct);
 
 app.post("/delete-cart-product", deleteCartProduct);
 app.post("/addishlist", addWishList);

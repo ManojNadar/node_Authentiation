@@ -111,6 +111,15 @@ a {
   margin-left: 5%;
   border-radius: 5px;
 }
+.singleProd > button {
+  background-color: green;
+  border: none;
+  color: white;
+  width: 50%;
+  height: 30px;
+  margin-left: 5%;
+  border-radius: 5px;
+}
 .singleImage {
   width: 100%;
   height: 70%;

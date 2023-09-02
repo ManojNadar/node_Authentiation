@@ -11,6 +11,7 @@ import YourProducts from "./Components/Products/YourProducts";
 import Profile from "./Components/Profile";
 import UpdateProduct from "./Components/Products/UpdateProduct";
 import Cart from "./Components/Cart/Cart";
+import SingleProduct from "./Components/Products/SingleProduct";
 
 function App() {
   // const { state } = useContext(MyUserContext);
@@ -31,6 +32,11 @@ function App() {
             exact
             path="/update-product/:productId"
             element={<UpdateProduct />}
+          />
+          <Route
+            exact
+            path="/single-product/:singleprodId"
+            element={<SingleProduct />}
           />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/cart" element={<Cart />} />

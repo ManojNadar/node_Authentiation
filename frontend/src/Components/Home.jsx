@@ -45,14 +45,14 @@ const Home = () => {
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
   return (
     <>
       <div className="homeBodyContainer">
         <div>
-          <h1>Home {state?.currentuser?.name}</h1>
+          <h1 style={{ color: "green" }}>Home {state?.currentuser?.name}</h1>
 
           {state?.currentuser ? (
             <button onClick={logout}>LOGOUT</button>
@@ -71,7 +71,11 @@ const Home = () => {
             }}
           >
             {products.map((product) => (
-              <div className="singleProd" key={product._id}>
+              <div
+                onClick={() => route(`/single-product/${product._id}`)}
+                className="singleProd"
+                key={product._id}
+              >
                 <div className="singleImage">
                   <img src={product.image} alt="" />
                 </div>
