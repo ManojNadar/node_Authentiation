@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "../Api";
 import { toast } from "react-hot-toast";
+import { MyUserContext } from "../Context/MyContext";
 
 const SingleProduct = () => {
   const [singleProduct, setSingleProduct] = useState({});
   const { singleprodId } = useParams();
+
+  const { state } = useContext(MyUserContext);
 
   useEffect(() => {
     async function getSingleProduct() {
@@ -51,31 +54,36 @@ const SingleProduct = () => {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-around",
+              justifyContent: "space-evenly",
               marginTop: "2%",
             }}
           >
-            <div style={{ width: "45%" }}>
-              <img style={{ width: "100%" }} src={singleProduct.image} alt="" />
+            <div style={{ width: "40%" }}>
+              <img
+                style={{ width: "100%", height: "500px" }}
+                src={singleProduct.image}
+                alt=""
+              />
             </div>
 
-            <div style={{ width: "45%" }}>
+            <div style={{ width: "40%" }}>
               <h1>Name : {singleProduct.title}</h1>
               <h2>Price :Rs.{singleProduct.price}</h2>
-
-              <button
-                style={{
-                  width: "45%",
-                  height: "45px",
-                  backgroundColor: "green",
-                  color: "white",
-                  fontSize: "1.3em",
-                  border: "none",
-                }}
-                onClick={() => addToCart(singleProduct._id)}
-              >
-                Add to Cart
-              </button>
+              {state?.currentuser?.name && (
+                <button
+                  style={{
+                    width: "35%",
+                    height: "45px",
+                    backgroundColor: "green",
+                    color: "white",
+                    fontSize: "1.3em",
+                    border: "none",
+                  }}
+                  onClick={() => addToCart(singleProduct._id)}
+                >
+                  Add to Cart
+                </button>
+              )}
             </div>
           </div>
         ) : (

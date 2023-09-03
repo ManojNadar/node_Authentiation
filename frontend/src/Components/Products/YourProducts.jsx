@@ -92,7 +92,7 @@ const YourProducts = () => {
             ))}
           </div>
         ) : (
-          <div>No Products added.</div>
+          <div>Loading....</div>
         )}
       </div>
     </SellerProtected>
