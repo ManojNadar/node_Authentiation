@@ -75,7 +75,7 @@ const Home = () => {
           >
             {products.map((product) => (
               <div
-                onClick={() => route(`/single-product/${product._id}`)}
+                onClick={() => route(`single-product/${product._id}`)}
                 className="singleProd"
                 key={product._id}
               >

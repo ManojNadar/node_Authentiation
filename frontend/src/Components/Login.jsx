@@ -27,7 +27,7 @@ const Login = () => {
 
     if (email && password) {
       try {
-        const response = await api.post("/login", {
+        const response = await api.post("login", {
           loginData,
         });
 
