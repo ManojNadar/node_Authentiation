@@ -2,9 +2,15 @@ import axios from "axios";
 
 const token = JSON.parse(localStorage.getItem("userToken"));
 
-const api = axios.create({
-  baseURL: "http://localhost:8000",
-  headers: { Authorization: `Bearer ${token}` },
-});
+if (token) {
+  var api = axios.create({
+    baseURL: "https://node-authentication-backend.onrender.com",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+} else {
+  var api = axios.create({
+    baseURL: "https://node-authentication-backend.onrender.com",
+  });
+}
 
 export default api;
