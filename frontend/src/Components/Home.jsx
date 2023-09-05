@@ -36,11 +36,29 @@ const Home = () => {
           <h1 style={{ color: "green" }}>Home {state?.currentuser?.name}</h1>
 
           {state?.currentuser ? (
-            <button style={{ width: "20%" }} onClick={logout}>
+            <button
+              style={{
+                width: "20%",
+                height: "35px",
+                backgroundColor: "yellow",
+                color: "black",
+                fontWeight: "bolder",
+              }}
+              onClick={logout}
+            >
               LOGOUT
             </button>
           ) : (
-            <button style={{ width: "20%" }} onClick={() => route("/login")}>
+            <button
+              style={{
+                width: "20%",
+                height: "35px",
+                backgroundColor: "yellow",
+                color: "black",
+                fontWeight: "bolder",
+              }}
+              onClick={() => route("/login")}
+            >
               Login
             </button>
           )}
