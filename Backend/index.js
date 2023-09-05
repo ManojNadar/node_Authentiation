@@ -111,5 +111,5 @@ mongoose
   });
 
 app.listen(8000, () => {
-  console.log("app running on port 8001");
+  console.log("app running on port 8000");
 });
