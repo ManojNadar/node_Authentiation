@@ -36,9 +36,13 @@ const Home = () => {
           <h1 style={{ color: "green" }}>Home {state?.currentuser?.name}</h1>
 
           {state?.currentuser ? (
-            <button onClick={logout}>LOGOUT</button>
+            <button style={{ width: "20%" }} onClick={logout}>
+              LOGOUT
+            </button>
           ) : (
-            <button onClick={() => route("/login")}>Login</button>
+            <button style={{ width: "20%" }} onClick={() => route("/login")}>
+              Login
+            </button>
           )}
         </div>
 
