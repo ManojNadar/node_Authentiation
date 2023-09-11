@@ -74,7 +74,7 @@ const Home = () => {
           <div className="filSortSearch">
             <div className="byDate">
               <select onChange={(e) => setOrder(e.target.value)}>
-                {/* <option value="">Sort By Date</option> */}
+                <option value="">Sort By Date</option>
                 <option value={-1}>Newly Added</option>
                 <option value={1}>Old Added</option>
               </select>
@@ -129,6 +129,7 @@ const Home = () => {
           >
             Previous
           </button>
+
           <button
             style={{
               backgroundColor: "brown",

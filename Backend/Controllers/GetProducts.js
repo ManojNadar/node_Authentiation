@@ -2,7 +2,7 @@ import Products from "../Model/ProductModel.js";
 
 export const GetProducts = async (req, res) => {
   try {
-    const { page = 1, limit = 2, title, sort = "date", order } = req.body;
+    const { page = 1, limit = 4, title, sort = "date", order } = req.body;
 
     const query = {
       title: { $regex: title, $options: "i" },
