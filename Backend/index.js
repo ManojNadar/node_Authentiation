@@ -67,7 +67,7 @@ app.post("/verifyotp", verifyOtp);
 // --------------------
 
 app.post("/addproduct", productMiddleWare, addproduct);
-app.get("/getproducts", GetProducts);
+app.post("/getproducts", GetProducts);
 app.post("/singleproduct", SingleProduct);
 app.post("/ownproducts", productMiddleWare, OwnProducts);
 app.post("/geteditproduct", productMiddleWare, GetEditProduct);

@@ -36,6 +36,11 @@ const productSchema = new Schema({
   comments: {
     type: [Object],
   },
+  date: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
 });
 
 export default mongoose.model("Products", productSchema);

@@ -5,19 +5,26 @@ import api from "./Api/index";
 import { toast } from "react-hot-toast";
 
 const Home = () => {
-  const { logout, state } = useContext(MyUserContext);
+  const [title, setTitle] = useState("");
+  const [order, setOrder] = useState(1);
+  const [page, setPage] = useState(1);
   const [products, setProducts] = useState([]);
 
-  // console.log(products);
+  const { state } = useContext(MyUserContext);
 
   const route = useNavigate();
 
+  // console.log(products);
+  // console.log(title);
+  // console.log(order);
+
   useEffect(() => {
-    async function allProducts() {
+    async function pro() {
       try {
-        const response = await api.get("/getproducts");
-        if (response.data.success) {
-          setProducts(response.data.allProducts);
+        const response = await api.post("/getproducts", { title, order, page });
+        if (response?.data?.success) {
+          // console.log(response.data.pro);
+          setProducts(response?.data?.allProducts);
         } else {
           toast.error(response.data.message);
         }
@@ -26,8 +33,8 @@ const Home = () => {
         console.log(error);
       }
     }
-    allProducts();
-  }, []);
+    pro();
+  }, [title, order, page]);
 
   return (
     <>
@@ -35,7 +42,7 @@ const Home = () => {
         <div>
           <h1 style={{ color: "green" }}>Home {state?.currentuser?.name}</h1>
 
-          {state?.currentuser ? (
+          {/* {state?.currentuser ? (
             <button
               style={{
                 width: "20%",
@@ -61,9 +68,26 @@ const Home = () => {
             >
               Login
             </button>
-          )}
+          )} */}
         </div>
-
+        {products?.length ? (
+          <div className="filSortSearch">
+            <div className="byDate">
+              <select onChange={(e) => setOrder(e.target.value)}>
+                {/* <option value="">Sort By Date</option> */}
+                <option value={-1}>Newly Added</option>
+                <option value={1}>Old Added</option>
+              </select>
+            </div>
+            <div className="search">
+              <input
+                type="text"
+                placeholder="Search Products"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </div>
+          </div>
+        ) : null}
         {products?.length ? (
           <div
             style={{
@@ -82,7 +106,7 @@ const Home = () => {
                 <div className="singleImage">
                   <img src={product.image} alt="" />
                 </div>
-                <h2>Name : {product.title}</h2>
+                <h2>Name : {product.title.slice(0, 25)}...</h2>
                 <h3>Price : {product.price}</h3>
               </div>
             ))}
@@ -90,6 +114,36 @@ const Home = () => {
         ) : (
           <div>Loading...</div>
         )}
+
+        <div>
+          <button
+            style={{
+              backgroundColor: "brown",
+              color: "white",
+              width: "15%",
+              height: "30px",
+              marginTop: "3%",
+              border: "none",
+            }}
+            onClick={() => setPage(page - 1)}
+          >
+            Previous
+          </button>
+          <button
+            style={{
+              backgroundColor: "brown",
+              color: "white",
+              width: "15%",
+              height: "30px",
+              marginTop: "3%",
+              border: "none",
+              marginLeft: "1%",
+            }}
+            onClick={() => setPage(page + 1)}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </>
   );

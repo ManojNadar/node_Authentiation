@@ -74,8 +74,8 @@ const YourProducts = () => {
                 <div className="singleImage">
                   <img src={product.image} alt="" />
                 </div>
-                <h2>Name : {product.title}</h2>
-                <h3>Price : {product.price}</h3>
+                <h2>Name : {product.title.slice(0, 10)}..</h2>
+                <h3>Rs.{product.price}</h3>
                 <button
                   className="addToCartBtn"
                   onClick={() => route(`/update-product/${product._id}`)}
