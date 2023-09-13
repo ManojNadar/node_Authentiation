@@ -8,7 +8,10 @@ const Home = () => {
   const [title, setTitle] = useState("");
   const [order, setOrder] = useState(1);
   const [page, setPage] = useState(1);
+  
   const [products, setProducts] = useState([]);
+
+  const [suggestion, setSuggestion] = useState(false);
 
   const { state } = useContext(MyUserContext);
 
@@ -35,6 +38,28 @@ const Home = () => {
     }
     pro();
   }, [title, order, page]);
+
+  const handleSuggestChange = (e) => {
+    setTitle(e.target.value);
+    if (e.target.value) {
+      setSuggestion(true);
+    } else {
+      setSuggestion(false);
+    }
+  };
+
+  const handleProductTitle = async (id) => {
+    console.log(id);
+    try {
+      const response = await api.post("/searchproduct", { id });
+      if (response.data.success) {
+        setProducts(response.data.searchProducts);
+        setSuggestion(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -83,8 +108,25 @@ const Home = () => {
               <input
                 type="text"
                 placeholder="Search Products"
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={handleSuggestChange}
+                value={title}
               />
+              {suggestion && (
+                <>
+                  {products?.length && (
+                    <div className="popupSearch">
+                      {products?.map((item) => (
+                        <p
+                          key={item._id}
+                          onClick={() => handleProductTitle(item._id)}
+                        >
+                          {item.title}
+                        </p>
+                      ))}
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         ) : null}

@@ -13,7 +13,7 @@ import {
 } from "./Controllers/UserController.js";
 import { addproduct } from "./Controllers/AddProduct.js";
 import { productMiddleWare } from "./Middleware/ProductMiddleware.js";
-import { GetProducts } from "./Controllers/GetProducts.js";
+import { GetProducts, searchProduct } from "./Controllers/GetProducts.js";
 import { UpdateProduct } from "./Controllers/UpdateProduct.js";
 import { OwnProducts } from "./Controllers/OwnProducts.js";
 import {
@@ -68,6 +68,7 @@ app.post("/verifyotp", verifyOtp);
 
 app.post("/addproduct", productMiddleWare, addproduct);
 app.post("/getproducts", GetProducts);
+app.post("/searchproduct", searchProduct);
 app.post("/singleproduct", SingleProduct);
 app.post("/ownproducts", productMiddleWare, OwnProducts);
 app.post("/geteditproduct", productMiddleWare, GetEditProduct);

@@ -30,7 +30,7 @@ const Register = () => {
 
     if (name && email && password && confirmPassword && role && number) {
       if (password === confirmPassword) {
-        const response = await api.post("register", {
+        const response = await api.post("/register", {
           regData,
         });
 

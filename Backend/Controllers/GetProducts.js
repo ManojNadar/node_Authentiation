@@ -8,7 +8,7 @@ export const GetProducts = async (req, res) => {
       title: { $regex: title, $options: "i" },
     };
 
-    console.log(query);
+    // console.log(query);
 
     // const sortPrefix = sort[0] == "-" ? "-" : "";
     const sortField = sort.replace(/^-/, "");
@@ -31,6 +31,37 @@ export const GetProducts = async (req, res) => {
         success: true,
         message: "All Products Fetched",
         allProducts: pro,
+      });
+    } else {
+      res.status(404).json({ success: false, message: "No Product Found" });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "error from catch block",
+    });
+  }
+};
+
+export const searchProduct = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    // console.log(id);
+
+    if (!id)
+      return res.status(404).json({
+        success: false,
+        message: "id is required",
+      });
+
+    const searchProducts = await Products.find({ _id: id });
+
+    if (searchProducts?.length) {
+      return res.status(200).json({
+        success: true,
+        message: "Products Fetched",
+        searchProducts: searchProducts,
       });
     } else {
       res.status(404).json({ success: false, message: "No Product Found" });
