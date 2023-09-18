@@ -49,7 +49,7 @@ export const Register = async (req, res) => {
       return res.json({ success: false, message: "All fileds are mandatory" });
     }
   } catch (error) {
-    return res.json({ success: false, message: "Error from try catch" });
+    return res.json({ success: false, message: error.message });
   }
 };
 
@@ -117,7 +117,7 @@ export const Login = async (req, res) => {
   } catch (error) {
     return res.json({
       success: false,
-      message: "Error from Catch Block",
+      message: error.message,
     });
   }
 };
@@ -185,7 +185,7 @@ export const GetNumber = async (req, res) => {
       .status(404)
       .json({ success: false, message: "number not Found" });
   } catch (error) {
-    return res.status(500).json({ success: false, message: "server error" });
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -219,7 +219,7 @@ export const sendOtp = async (req, res) => {
     }
     return res.status(404).json({ success: false, message: "user not Found" });
   } catch (error) {
-    return res.status(500).json({ success: false, message: "server error" });
+    return res.status(500).json({ success: false, message: error.message });
   }
 };
 
@@ -254,8 +254,6 @@ export const verifyOtp = async (req, res) => {
       message: "user not found",
     });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ success: false, error: "error from catch block" });
+    return res.status(500).json({ success: false, error: error.message });
   }
 };

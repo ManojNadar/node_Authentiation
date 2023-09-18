@@ -2,7 +2,7 @@ import Products from "../Model/ProductModel.js";
 
 export const GetProducts = async (req, res) => {
   try {
-    const { page = 1, limit = 4, title, sort = "date", order } = req.body;
+    const { page, limit = 4, title, sort = "date", order } = req.body;
 
     const query = {
       title: { $regex: title, $options: "i" },
@@ -12,7 +12,10 @@ export const GetProducts = async (req, res) => {
 
     // const sortPrefix = sort[0] == "-" ? "-" : "";
     const sortField = sort.replace(/^-/, "");
+    // console.log(sortField, "sortField");
+
     const sortOption = { [sortField]: `${order}` };
+    // console.log(sortOption, "sortOption");
 
     const skip = (page - 1) * limit;
     const limitValue = limit;
@@ -38,7 +41,7 @@ export const GetProducts = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "error from catch block",
+      message: error.message,
     });
   }
 };
@@ -69,7 +72,7 @@ export const searchProduct = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: "error from catch block",
+      message: error.message,
     });
   }
 };

@@ -8,7 +8,7 @@ const Home = () => {
   const [title, setTitle] = useState("");
   const [order, setOrder] = useState(1);
   const [page, setPage] = useState(1);
-  
+
   const [products, setProducts] = useState([]);
 
   const [suggestion, setSuggestion] = useState(false);
@@ -49,7 +49,7 @@ const Home = () => {
   };
 
   const handleProductTitle = async (id) => {
-    console.log(id);
+    // console.log(id);
     try {
       const response = await api.post("/searchproduct", { id });
       if (response.data.success) {
